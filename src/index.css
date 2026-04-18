@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Noto Sans JP', 'Hiragino Sans', sans-serif;
+  background-color: #fafaf7;
+  color: #2d1b0e;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  width: 100%;
+}
