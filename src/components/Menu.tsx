@@ -125,7 +125,7 @@ export default function Menu() {
                 <span style={{ fontFamily: DISPLAY, fontSize: '2rem', fontWeight: 300, color: '#0f0e0d', letterSpacing: '0.22em' }}>
                   {cat.name}
                 </span>
-                <span style={{ fontFamily: SERIF, fontSize: '11px', fontWeight: 300, color: '#8a8278', letterSpacing: '0.2em' }}>
+                <span style={{ fontFamily: SERIF, fontSize: '13px', fontWeight: 400, color: '#6e6660', letterSpacing: '0.2em' }}>
                   {cat.nameJa}
                 </span>
               </div>
@@ -150,7 +150,7 @@ export default function Menu() {
                         style={{
                           display: 'block',
                           fontFamily: SERIF,
-                          fontSize: '0.875rem',
+                          fontSize: '0.95rem',
                           fontWeight: 500,
                           color: '#0f0e0d',
                           letterSpacing: '0.04em',
@@ -163,9 +163,9 @@ export default function Menu() {
                         style={{
                           display: 'block',
                           fontFamily: SERIF,
-                          fontSize: '11px',
-                          fontWeight: 300,
-                          color: '#8a8278',
+                          fontSize: '13px',
+                          fontWeight: 400,
+                          color: '#6e6660',
                           lineHeight: 1.7,
                           letterSpacing: '0.02em',
                         }}
@@ -200,9 +200,9 @@ export default function Menu() {
             marginTop: '48px',
             textAlign: 'center',
             fontFamily: SERIF,
-            fontSize: '11px',
-            fontWeight: 300,
-            color: '#c5bdb4',
+            fontSize: '13px',
+            fontWeight: 400,
+            color: '#a09890',
             letterSpacing: '0.12em',
           }}
         >

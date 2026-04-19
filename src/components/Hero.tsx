@@ -62,7 +62,7 @@ export default function Hero() {
           <span
             style={{
               fontFamily: DISPLAY,
-              fontSize: '10px',
+              fontSize: '12px',
               letterSpacing: '0.55em',
               color: '#b8986a',
               textTransform: 'uppercase',
@@ -136,10 +136,10 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.9 }}
           style={{
             fontFamily: SERIF,
-            fontSize: '13px',
-            fontWeight: 300,
+            fontSize: '15px',
+            fontWeight: 400,
             lineHeight: 2.2,
-            color: '#8a8278',
+            color: '#6e6660',
             letterSpacing: '0.05em',
             marginBottom: '52px',
             maxWidth: '360px',

@@ -12,8 +12,8 @@ const inputBase: React.CSSProperties = {
   borderBottom: '1px solid #c5bdb4',
   padding: '12px 0',
   fontFamily: SERIF,
-  fontSize: '14px',
-  fontWeight: 300,
+  fontSize: '15px',
+  fontWeight: 400,
   color: '#0f0e0d',
   outline: 'none',
   transition: 'border-color 0.3s',
@@ -22,9 +22,9 @@ const inputBase: React.CSSProperties = {
 
 const labelBase: React.CSSProperties = {
   fontFamily: DISPLAY,
-  fontSize: '10px',
+  fontSize: '12px',
   letterSpacing: '0.45em',
-  color: '#8a8278',
+  color: '#6e6660',
   textTransform: 'uppercase',
   display: 'block',
   marginBottom: '10px',
@@ -112,10 +112,10 @@ export default function Contact() {
               transition={{ duration: 0.8, ease, delay: 0.26 }}
               style={{
                 fontFamily: SERIF,
-                fontSize: '13px',
-                fontWeight: 300,
+                fontSize: '15px',
+                fontWeight: 400,
                 lineHeight: 2.1,
-                color: '#8a8278',
+                color: '#6e6660',
                 letterSpacing: '0.04em',
                 marginTop: '20px',
               }}
@@ -164,7 +164,7 @@ export default function Contact() {
               >
                 送信が完了しました
               </h3>
-              <p style={{ fontFamily: SERIF, fontSize: '13px', fontWeight: 300, color: '#8a8278', lineHeight: 2.2 }}>
+              <p style={{ fontFamily: SERIF, fontSize: '15px', fontWeight: 400, color: '#6e6660', lineHeight: 2.2 }}>
                 ご連絡いただきありがとうございます。<br />
                 2営業日以内にご返信いたします。
               </p>

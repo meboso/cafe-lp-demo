@@ -169,11 +169,11 @@ export default function Access() {
               <p style={{ fontFamily: DISPLAY, fontSize: '10px', letterSpacing: '0.5em', color: '#b8986a', textTransform: 'uppercase' as const, marginBottom: '16px' }}>
                 Location
               </p>
-              <p style={{ fontFamily: SERIF, fontSize: '0.875rem', fontWeight: 300, color: '#f7f3ed', lineHeight: 2.2, letterSpacing: '0.04em' }}>
+              <p style={{ fontFamily: SERIF, fontSize: '0.95rem', fontWeight: 400, color: '#f7f3ed', lineHeight: 2.2, letterSpacing: '0.04em' }}>
                 〒604-8XXX<br />
                 京都府京都市中京区○○町○○番地
               </p>
-              <p style={{ fontFamily: SERIF, fontSize: '12px', fontWeight: 300, color: '#3a3836', marginTop: '8px', letterSpacing: '0.04em' }}>
+              <p style={{ fontFamily: SERIF, fontSize: '13px', fontWeight: 400, color: '#5a5856', marginTop: '8px', letterSpacing: '0.04em' }}>
                 京都市営地下鉄「四条駅」より徒歩5分
               </p>
             </div>
@@ -195,10 +195,10 @@ export default function Access() {
                       borderBottom: '1px solid #1e1c1a',
                     }}
                   >
-                    <span style={{ fontFamily: SERIF, fontSize: '13px', fontWeight: 300, color: h.closed ? '#3a3836' : '#8a8278', letterSpacing: '0.05em' }}>
+                    <span style={{ fontFamily: SERIF, fontSize: '14px', fontWeight: 400, color: h.closed ? '#5a5856' : '#a09890', letterSpacing: '0.05em' }}>
                       {h.day}
                     </span>
-                    <span style={{ fontFamily: DISPLAY, fontSize: '1rem', fontWeight: 300, color: h.closed ? '#3a3836' : '#f7f3ed', letterSpacing: '0.06em' }}>
+                    <span style={{ fontFamily: DISPLAY, fontSize: '1.05rem', fontWeight: 400, color: h.closed ? '#5a5856' : '#f7f3ed', letterSpacing: '0.06em' }}>
                       {h.time}
                     </span>
                   </div>
@@ -219,9 +219,9 @@ export default function Access() {
                       padding: '7px 14px',
                       border: '1px solid #2a2826',
                       fontFamily: SERIF,
-                      fontSize: '11px',
-                      fontWeight: 300,
-                      color: '#3a3836',
+                      fontSize: '13px',
+                      fontWeight: 400,
+                      color: '#5a5856',
                       letterSpacing: '0.05em',
                     }}
                   >

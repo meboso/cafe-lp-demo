@@ -81,9 +81,9 @@ export default function Footer() {
                       style={{
                         textDecoration: 'none',
                         fontFamily: SERIF,
-                        fontSize: '12px',
-                        fontWeight: 300,
-                        color: '#3a3836',
+                        fontSize: '14px',
+                        fontWeight: 400,
+                        color: '#5a5856',
                         letterSpacing: '0.1em',
                         transition: 'color 0.3s',
                       }}
@@ -121,9 +121,9 @@ export default function Footer() {
                     style={{
                       textDecoration: 'none',
                       fontFamily: DISPLAY,
-                      fontSize: '13px',
-                      fontWeight: 300,
-                      color: '#3a3836',
+                      fontSize: '14px',
+                      fontWeight: 400,
+                      color: '#5a5856',
                       letterSpacing: '0.06em',
                       transition: 'color 0.3s',
                     }}
@@ -174,7 +174,7 @@ export default function Footer() {
               fontFamily: DISPLAY,
               fontSize: '11px',
               letterSpacing: '0.2em',
-              color: '#2a2826',
+              color: '#4a4846',
             }}
           >
             © 2024 CAFÉ SORA. All rights reserved.
@@ -182,9 +182,9 @@ export default function Footer() {
           <p
             style={{
               fontFamily: SERIF,
-              fontSize: '10px',
-              fontWeight: 300,
-              color: '#1e1c1a',
+              fontSize: '12px',
+              fontWeight: 400,
+              color: '#3a3836',
             }}
           >
             ※ これはポートフォリオ用のデモサイトです

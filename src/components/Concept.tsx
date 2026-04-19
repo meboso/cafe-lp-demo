@@ -95,10 +95,10 @@ export default function Concept() {
               transition={{ duration: 0.8, ease, delay: 0.26 }}
               style={{
                 fontFamily: SERIF,
-                fontSize: '13px',
-                fontWeight: 300,
+                fontSize: '15px',
+                fontWeight: 400,
                 lineHeight: 2.3,
-                color: '#8a8278',
+                color: '#6e6660',
                 letterSpacing: '0.05em',
                 marginTop: '24px',
                 maxWidth: '480px',
@@ -144,16 +144,16 @@ export default function Concept() {
 
               {/* Title */}
               <div>
-                <p style={{ fontFamily: DISPLAY, fontSize: '10px', letterSpacing: '0.45em', color: '#8a8278', textTransform: 'uppercase' as const, marginBottom: '10px' }}>
+                <p style={{ fontFamily: DISPLAY, fontSize: '12px', letterSpacing: '0.45em', color: '#8a8278', textTransform: 'uppercase' as const, marginBottom: '10px' }}>
                   {f.titleEn}
                 </p>
-                <h3 style={{ fontFamily: SERIF, fontSize: '1rem', fontWeight: 500, color: '#0f0e0d', lineHeight: 1.5, margin: 0 }}>
+                <h3 style={{ fontFamily: SERIF, fontSize: '1.05rem', fontWeight: 500, color: '#0f0e0d', lineHeight: 1.5, margin: 0 }}>
                   {f.title}
                 </h3>
               </div>
 
               {/* Description */}
-              <p style={{ fontFamily: SERIF, fontSize: '13px', fontWeight: 300, color: '#8a8278', lineHeight: 2.1, letterSpacing: '0.04em', margin: 0 }}>
+              <p style={{ fontFamily: SERIF, fontSize: '14px', fontWeight: 400, color: '#6e6660', lineHeight: 2.1, letterSpacing: '0.04em', margin: 0 }}>
                 {f.desc}
               </p>
             </motion.div>

@@ -166,9 +166,9 @@ export default function Gallery() {
                 <p
                   style={{
                     fontFamily: SERIF,
-                    fontSize: '12px',
-                    fontWeight: 300,
-                    color: 'rgba(247, 243, 237, 0.9)',
+                    fontSize: '13px',
+                    fontWeight: 400,
+                    color: 'rgba(247, 243, 237, 0.95)',
                     letterSpacing: '0.18em',
                     margin: 0,
                   }}
@@ -188,9 +188,9 @@ export default function Gallery() {
             textAlign: 'center',
             marginTop: '28px',
             fontFamily: SERIF,
-            fontSize: '11px',
-            fontWeight: 300,
-            color: '#c5bdb4',
+            fontSize: '13px',
+            fontWeight: 400,
+            color: '#a09890',
           }}
         >
           ※ 実際のサイトでは本物の写真に差し替えます
