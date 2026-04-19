@@ -1,70 +1,180 @@
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
-const photos = [
-  { id: 1, seed: 'coffee-cup', label: 'エスプレッソ', color: '#3d2010' },
-  { id: 2, seed: 'cafe-interior', label: '店内の様子', color: '#5a3820' },
-  { id: 3, seed: 'latte-art', label: 'ラテアート', color: '#8b5e3c' },
-  { id: 4, seed: 'food-plate', label: 'アボカドトースト', color: '#6b4c2a' },
-  { id: 5, seed: 'pastry', label: 'スコーン', color: '#c4956a' },
-  { id: 6, seed: 'cafe-terrace', label: 'テラス席', color: '#4a2d14' },
-]
+const DISPLAY = '"Cormorant Garamond", serif'
+const SERIF = '"Noto Serif JP", serif'
+const ease = [0.25, 0.46, 0.45, 0.94] as const
 
-const gradients = [
-  'linear-gradient(135deg, #2d1b0e 0%, #6b3f1e 100%)',
-  'linear-gradient(135deg, #6b3f1e 0%, #d4a574 100%)',
-  'linear-gradient(135deg, #d4a574 0%, #e8c9a0 100%)',
-  'linear-gradient(135deg, #3d2010 0%, #8b5e3c 100%)',
-  'linear-gradient(135deg, #8b5e3c 0%, #c4956a 100%)',
-  'linear-gradient(135deg, #2d1b0e 0%, #4a2d14 100%)',
+const BASE = 'https://images.unsplash.com/photo-'
+const PARAMS = '?auto=format&fit=crop&w=900&q=82'
+
+const photos = [
+  { label: 'コーヒー', url: `${BASE}1521302080334-4bebac2763a6${PARAMS}` },
+  { label: '店内の様子', url: `${BASE}1554118811-1e0d58224f24${PARAMS}` },
+  { label: 'ラテアート', url: `${BASE}1541167760496-1628856ab772${PARAMS}` },
+  { label: 'フードプレート', url: `${BASE}1490645935967-10de6ba17061${PARAMS}` },
+  { label: 'バリスタ', url: `${BASE}1558618666-fcd25c85cd64${PARAMS}` },
+  { label: 'カフェタイム', url: `${BASE}1509042239860-f550ce710b93${PARAMS}` },
 ]
 
 export default function Gallery() {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-100px' })
+  const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="gallery" className="py-24 bg-[#fafaf7]">
-      <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <p className="text-[#d4a574] tracking-[0.3em] text-sm uppercase mb-3">Gallery</p>
-          <h2 className="text-[#2d1b0e] font-bold text-4xl mb-5">CAFÉ SORAの風景</h2>
-          <p className="text-[#6b3f1e]/70 text-base">
-            店内の様子や、毎日丁寧に作るコーヒーと料理をご覧ください。
-          </p>
-        </motion.div>
+    <section
+      id="gallery"
+      style={{ padding: '128px 0', backgroundColor: '#f7f3ed', overflow: 'hidden' }}
+    >
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 clamp(32px, 8vw, 96px)' }}>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {/* Section header */}
+        <div ref={ref} style={{ position: 'relative', marginBottom: '64px' }}>
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              top: '-40px',
+              left: '-20px',
+              fontFamily: DISPLAY,
+              fontSize: 'clamp(100px, 16vw, 180px)',
+              fontWeight: 300,
+              lineHeight: 1,
+              color: '#ede9e0',
+              letterSpacing: '-0.06em',
+              userSelect: 'none',
+              pointerEvents: 'none',
+            }}
+          >
+            03
+          </div>
+
+          <div style={{ position: 'relative' }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, ease }}
+              style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '28px' }}
+            >
+              <span style={{ display: 'block', width: '40px', height: '1px', backgroundColor: '#b8986a' }} />
+              <span style={{ fontFamily: DISPLAY, fontSize: '11px', letterSpacing: '0.5em', color: '#b8986a', textTransform: 'uppercase' as const, fontWeight: 400 }}>
+                Gallery
+              </span>
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 24 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.85, ease, delay: 0.12 }}
+              style={{
+                fontFamily: DISPLAY,
+                fontSize: 'clamp(1.9rem, 4.5vw, 3.5rem)',
+                fontWeight: 300,
+                lineHeight: 1.25,
+                color: '#0f0e0d',
+                margin: 0,
+              }}
+            >
+              CAFÉ SORAの風景
+            </motion.h2>
+          </div>
+        </div>
+
+        {/* Asymmetric grid */}
+        <div className="gallery-grid">
           {photos.map((photo, i) => (
             <motion.div
-              key={photo.id}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 + i * 0.1 }}
-              className="relative group overflow-hidden rounded-xl aspect-square"
+              key={i}
+              initial={{ opacity: 0, y: 16 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, ease, delay: 0.2 + i * 0.07 }}
+              className={`gallery-item-${i}`}
+              style={{
+                position: 'relative',
+                overflow: 'hidden',
+                cursor: 'pointer',
+              }}
             >
-              <div
-                className="w-full h-full transition-transform duration-500 group-hover:scale-110"
-                style={{ background: gradients[i] }}
+              {/* Background */}
+              <img
+                src={photo.url}
+                alt={photo.label}
+                className="gallery-bg"
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                  transition: 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                }}
               />
-              {/* Overlay with label */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-end">
-                <p className="w-full text-white text-sm font-medium px-4 py-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+
+              {/* Hover overlay */}
+              <div
+                className="gallery-overlay"
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  backgroundColor: 'rgba(15, 14, 13, 0)',
+                  transition: 'background-color 0.5s ease',
+                }}
+              />
+
+              {/* Corner brackets */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '14px',
+                  left: '14px',
+                  width: '18px',
+                  height: '18px',
+                  borderTop: '1px solid rgba(255,255,255,0.2)',
+                  borderLeft: '1px solid rgba(255,255,255,0.2)',
+                  transition: 'border-color 0.4s',
+                }}
+                className="bracket-tl"
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: '14px',
+                  right: '14px',
+                  width: '18px',
+                  height: '18px',
+                  borderBottom: '1px solid rgba(255,255,255,0.2)',
+                  borderRight: '1px solid rgba(255,255,255,0.2)',
+                  transition: 'border-color 0.4s',
+                }}
+                className="bracket-br"
+              />
+
+              {/* Label */}
+              <div
+                className="gallery-label"
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  padding: '16px 20px',
+                  transform: 'translateY(100%)',
+                  transition: 'transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                }}
+              >
+                <p
+                  style={{
+                    fontFamily: SERIF,
+                    fontSize: '12px',
+                    fontWeight: 300,
+                    color: 'rgba(247, 243, 237, 0.9)',
+                    letterSpacing: '0.18em',
+                    margin: 0,
+                  }}
+                >
                   {photo.label}
                 </p>
-              </div>
-              {/* Decorative icon */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                <span className="text-white text-5xl">
-                  {['☕', '🏡', '✨', '🍳', '🥐', '🌿'][i]}
-                </span>
               </div>
             </motion.div>
           ))}
@@ -73,12 +183,29 @@ export default function Gallery() {
         <motion.p
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.8 }}
-          className="text-center text-[#6b3f1e]/40 text-xs mt-6"
+          transition={{ delay: 0.9 }}
+          style={{
+            textAlign: 'center',
+            marginTop: '28px',
+            fontFamily: SERIF,
+            fontSize: '11px',
+            fontWeight: 300,
+            color: '#c5bdb4',
+          }}
         >
           ※ 実際のサイトでは本物の写真に差し替えます
         </motion.p>
       </div>
+
+      <style>{`
+        .gallery-grid > div:hover .gallery-bg { transform: scale(1.06); }
+        .gallery-grid > div:hover .gallery-overlay { background-color: rgba(15, 14, 13, 0.32) !important; }
+        .gallery-grid > div:hover .gallery-label { transform: translateY(0) !important; }
+        .gallery-grid > div:hover .bracket-tl,
+        .gallery-grid > div:hover .bracket-br {
+          border-color: rgba(255,255,255,0.5) !important;
+        }
+      `}</style>
     </section>
   )
 }

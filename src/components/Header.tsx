@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
+const DISPLAY = '"Cormorant Garamond", serif'
+const SERIF = '"Noto Serif JP", serif'
+
 const navItems = [
   { label: 'コンセプト', href: '#concept' },
   { label: 'メニュー', href: '#menu' },
@@ -14,36 +17,114 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', onScroll)
+    const onScroll = () => setScrolled(window.scrollY > 60)
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-[#2d1b0e]/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'
-      }`}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        transition: 'all 0.5s ease',
+        backgroundColor: scrolled ? 'rgba(247, 243, 237, 0.96)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+        borderBottom: scrolled ? '1px solid #e0dbd1' : '1px solid transparent',
+      }}
     >
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" className="text-[#f5e6d3] font-bold text-xl tracking-widest">
-          CAFÉ SORA
+      <div
+        style={{
+          maxWidth: '1280px',
+          margin: '0 auto',
+          padding: '0 32px',
+          height: '72px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        {/* Logo */}
+        <a href="#" style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', lineHeight: 1, gap: '3px' }}>
+          <span
+            style={{
+              fontFamily: DISPLAY,
+              fontSize: '22px',
+              fontWeight: 300,
+              letterSpacing: '0.28em',
+              color: '#0f0e0d',
+              fontVariant: 'small-caps',
+            }}
+          >
+            Café Sora
+          </span>
+          <span
+            style={{
+              fontFamily: DISPLAY,
+              fontSize: '9px',
+              letterSpacing: '0.45em',
+              color: '#8a8278',
+              textTransform: 'uppercase',
+            }}
+          >
+            Kyoto · Est. 2018
+          </span>
         </a>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav style={{ display: 'none', alignItems: 'center', gap: '40px' }} className="md:flex">
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-[#e8c9a0] text-sm tracking-wider hover:text-white transition-colors"
+              className="group"
+              style={{
+                position: 'relative',
+                textDecoration: 'none',
+                fontFamily: SERIF,
+                fontSize: '12px',
+                fontWeight: 300,
+                letterSpacing: '0.18em',
+                color: '#8a8278',
+                transition: 'color 0.3s',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.color = '#0f0e0d')}
+              onMouseLeave={e => (e.currentTarget.style.color = '#8a8278')}
             >
               {item.label}
+              <span
+                style={{
+                  position: 'absolute',
+                  bottom: '-2px',
+                  left: 0,
+                  width: 0,
+                  height: '1px',
+                  backgroundColor: '#b8986a',
+                  transition: 'width 0.35s ease',
+                }}
+                className="nav-underline"
+              />
             </a>
           ))}
           <a
             href="#contact"
-            className="bg-[#d4a574] text-[#2d1b0e] text-sm font-bold px-5 py-2 rounded-full hover:bg-[#e8c9a0] transition-colors"
+            style={{
+              textDecoration: 'none',
+              fontFamily: DISPLAY,
+              fontSize: '11px',
+              fontWeight: 400,
+              letterSpacing: '0.25em',
+              color: '#f7f3ed',
+              backgroundColor: '#0f0e0d',
+              padding: '10px 24px',
+              textTransform: 'uppercase',
+              transition: 'background-color 0.3s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#b8986a')}
+            onMouseLeave={e => (e.currentTarget.style.backgroundColor = '#0f0e0d')}
           >
             ご予約
           </a>
@@ -51,14 +132,29 @@ export default function Header() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden text-[#f5e6d3] p-2"
+          className="md:hidden"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="メニュー"
+          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px' }}
         >
-          <div className="w-6 flex flex-col gap-1.5">
-            <span className={`block h-0.5 bg-current transition-all ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-            <span className={`block h-0.5 bg-current transition-all ${menuOpen ? 'opacity-0' : ''}`} />
-            <span className={`block h-0.5 bg-current transition-all ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+          <div style={{ width: '24px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            {[0, 1, 2].map((i) => (
+              <span
+                key={i}
+                style={{
+                  display: 'block',
+                  height: '1px',
+                  backgroundColor: '#0f0e0d',
+                  transition: 'all 0.3s',
+                  transform:
+                    i === 0 && menuOpen ? 'rotate(45deg) translate(5px, 5px)' :
+                    i === 1 && menuOpen ? 'scaleX(0)' :
+                    i === 2 && menuOpen ? 'rotate(-45deg) translate(5px, -5px)' :
+                    'none',
+                  opacity: i === 1 && menuOpen ? 0 : 1,
+                }}
+              />
+            ))}
           </div>
         </button>
       </div>
@@ -70,30 +166,65 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[#2d1b0e]/98 border-t border-[#6b3f1e]/30"
+            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            style={{
+              overflow: 'hidden',
+              backgroundColor: '#f7f3ed',
+              borderTop: '1px solid #e0dbd1',
+            }}
+            className="md:hidden"
           >
-            <nav className="flex flex-col px-6 py-4 gap-4">
-              {navItems.map((item) => (
-                <a
+            <nav style={{ display: 'flex', flexDirection: 'column', padding: '24px 32px', gap: '0' }}>
+              {navItems.map((item, i) => (
+                <motion.a
                   key={item.href}
                   href={item.href}
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.06 }}
                   onClick={() => setMenuOpen(false)}
-                  className="text-[#e8c9a0] text-sm tracking-wider py-2 border-b border-[#6b3f1e]/20"
+                  style={{
+                    textDecoration: 'none',
+                    fontFamily: SERIF,
+                    fontSize: '13px',
+                    fontWeight: 300,
+                    letterSpacing: '0.18em',
+                    color: '#8a8278',
+                    padding: '16px 0',
+                    borderBottom: '1px solid #e0dbd1',
+                    transition: 'color 0.3s',
+                  }}
                 >
                   {item.label}
-                </a>
+                </motion.a>
               ))}
               <a
                 href="#contact"
                 onClick={() => setMenuOpen(false)}
-                className="bg-[#d4a574] text-[#2d1b0e] text-sm font-bold px-5 py-3 rounded-full text-center mt-2"
+                style={{
+                  marginTop: '20px',
+                  textAlign: 'center',
+                  textDecoration: 'none',
+                  fontFamily: DISPLAY,
+                  fontSize: '11px',
+                  fontWeight: 400,
+                  letterSpacing: '0.3em',
+                  color: '#f7f3ed',
+                  backgroundColor: '#0f0e0d',
+                  padding: '14px',
+                  textTransform: 'uppercase',
+                }}
               >
-                ご予約・お問い合わせ
+                ご予約はこちら
               </a>
             </nav>
           </motion.div>
         )}
       </AnimatePresence>
+
+      <style>{`
+        .group:hover .nav-underline { width: 100% !important; }
+      `}</style>
     </header>
   )
 }

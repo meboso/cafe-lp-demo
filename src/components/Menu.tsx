@@ -1,84 +1,190 @@
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
-const menuItems = [
+const DISPLAY = '"Cormorant Garamond", serif'
+const SERIF = '"Noto Serif JP", serif'
+const ease = [0.25, 0.46, 0.45, 0.94] as const
+
+const categories = [
   {
-    category: 'COFFEE',
-    color: 'from-[#6b3f1e] to-[#2d1b0e]',
+    name: 'COFFEE',
+    nameJa: 'コーヒー',
     items: [
-      { name: 'エスプレッソ', price: '¥500', desc: '濃厚でコクのあるシングルショット' },
-      { name: 'カフェラテ', price: '¥650', desc: 'まろやかなミルクフォームとエスプレッソ' },
-      { name: 'フラットホワイト', price: '¥680', desc: 'ベルベットのような滑らかな口当たり' },
-      { name: '季節のラテ', price: '¥750', desc: '旬のフルーツ・スパイスを使った限定メニュー' },
+      { name: 'エスプレッソ', desc: '濃厚でコクのあるシングルショット', price: '¥500' },
+      { name: 'カフェラテ', desc: 'まろやかなミルクフォームとエスプレッソ', price: '¥650' },
+      { name: 'フラットホワイト', desc: 'ベルベットのような滑らかな口当たり', price: '¥680' },
+      { name: '季節のラテ', desc: '旬のフルーツ・スパイスを使った限定メニュー', price: '¥750' },
     ],
   },
   {
-    category: 'FOOD',
-    color: 'from-[#d4a574] to-[#6b3f1e]',
+    name: 'FOOD',
+    nameJa: 'フード',
     items: [
-      { name: 'アボカドトースト', price: '¥950', desc: '自家製パンに新鮮アボカドとポーチドエッグ' },
-      { name: 'キッシュセット', price: '¥1,100', desc: '日替わりキッシュ＋サラダ＋スープ' },
-      { name: 'パンケーキ', price: '¥1,050', desc: 'ふわふわの厚焼きに旬のベリーソース' },
-      { name: '焼き野菜プレート', price: '¥1,200', desc: '地元農家の旬野菜をロースト' },
+      { name: 'アボカドトースト', desc: '自家製パンに新鮮アボカドとポーチドエッグ', price: '¥950' },
+      { name: 'キッシュセット', desc: '日替わりキッシュ＋サラダ＋スープ', price: '¥1,100' },
+      { name: 'パンケーキ', desc: 'ふわふわの厚焼きに旬のベリーソース', price: '¥1,050' },
+      { name: '焼き野菜プレート', desc: '地元農家の旬野菜をロースト', price: '¥1,200' },
     ],
   },
   {
-    category: 'SWEETS',
-    color: 'from-[#e8c9a0] to-[#d4a574]',
-    textDark: true,
+    name: 'SWEETS',
+    nameJa: 'スイーツ',
     items: [
-      { name: 'ガトーショコラ', price: '¥620', desc: '濃厚なチョコレートケーキ' },
-      { name: 'ティラミス', price: '¥650', desc: 'マスカルポーネ香るイタリアン風' },
-      { name: 'スコーン', price: '¥450', desc: '自家製クロテッドクリームと共に' },
-      { name: '本日のタルト', price: '¥580', desc: '毎日変わるシェフのおすすめ' },
+      { name: 'ガトーショコラ', desc: '濃厚なチョコレートケーキ', price: '¥620' },
+      { name: 'ティラミス', desc: 'マスカルポーネ香るイタリアン風', price: '¥650' },
+      { name: 'スコーン', desc: '自家製クロテッドクリームと共に', price: '¥450' },
+      { name: '本日のタルト', desc: '毎日変わるシェフのおすすめ', price: '¥580' },
     ],
   },
 ]
 
 export default function Menu() {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-100px' })
+  const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="menu" className="py-24 bg-[#f5e6d3]/30">
-      <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <p className="text-[#d4a574] tracking-[0.3em] text-sm uppercase mb-3">Menu</p>
-          <h2 className="text-[#2d1b0e] font-bold text-4xl mb-5">こだわりのメニュー</h2>
-          <p className="text-[#6b3f1e]/70 text-base">
-            季節の食材と厳選豆を使った、心と体に優しいメニューをご用意しています。
-          </p>
-        </motion.div>
+    <section
+      id="menu"
+      style={{ padding: '128px 0', backgroundColor: '#ede9e0', overflow: 'hidden' }}
+    >
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 clamp(32px, 8vw, 96px)' }}>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {menuItems.map((category, ci) => (
+        {/* Section header */}
+        <div ref={ref} style={{ position: 'relative', marginBottom: '72px' }}>
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              top: '-40px',
+              right: '-20px',
+              textAlign: 'right',
+              fontFamily: DISPLAY,
+              fontSize: 'clamp(100px, 16vw, 180px)',
+              fontWeight: 300,
+              lineHeight: 1,
+              color: '#e0dbd1',
+              letterSpacing: '-0.06em',
+              userSelect: 'none',
+              pointerEvents: 'none',
+            }}
+          >
+            02
+          </div>
+
+          <div style={{ position: 'relative' }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, ease }}
+              style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '28px' }}
+            >
+              <span style={{ display: 'block', width: '40px', height: '1px', backgroundColor: '#b8986a' }} />
+              <span style={{ fontFamily: DISPLAY, fontSize: '11px', letterSpacing: '0.5em', color: '#b8986a', textTransform: 'uppercase' as const, fontWeight: 400 }}>
+                Menu
+              </span>
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 24 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.85, ease, delay: 0.12 }}
+              style={{
+                fontFamily: DISPLAY,
+                fontSize: 'clamp(1.9rem, 4.5vw, 3.5rem)',
+                fontWeight: 300,
+                lineHeight: 1.25,
+                color: '#0f0e0d',
+                margin: 0,
+              }}
+            >
+              こだわりのメニュー
+            </motion.h2>
+          </div>
+        </div>
+
+        {/* Menu categories */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '64px' }}>
+          {categories.map((cat, ci) => (
             <motion.div
               key={ci}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 28 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 + ci * 0.15 }}
-              className="rounded-2xl overflow-hidden shadow-sm"
+              transition={{ duration: 0.85, ease, delay: 0.28 + ci * 0.14 }}
             >
-              <div className={`bg-gradient-to-br ${category.color} p-6`}>
-                <h3 className={`font-bold text-xl tracking-widest ${category.textDark ? 'text-[#2d1b0e]' : 'text-white'}`}>
-                  {category.category}
-                </h3>
+              {/* Category heading */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'baseline',
+                  gap: '20px',
+                  paddingBottom: '16px',
+                  borderBottom: '1px solid #c5bdb4',
+                  marginBottom: '8px',
+                }}
+              >
+                <span style={{ fontFamily: DISPLAY, fontSize: '2rem', fontWeight: 300, color: '#0f0e0d', letterSpacing: '0.22em' }}>
+                  {cat.name}
+                </span>
+                <span style={{ fontFamily: SERIF, fontSize: '11px', fontWeight: 300, color: '#8a8278', letterSpacing: '0.2em' }}>
+                  {cat.nameJa}
+                </span>
               </div>
-              <div className="bg-white p-6 flex flex-col gap-4">
-                {category.items.map((item, ii) => (
-                  <div key={ii} className="flex justify-between items-start gap-4 pb-4 border-b border-[#f5e6d3] last:border-0 last:pb-0">
-                    <div>
-                      <p className="text-[#2d1b0e] font-semibold text-sm">{item.name}</p>
-                      <p className="text-[#6b3f1e]/60 text-xs mt-0.5 leading-relaxed">{item.desc}</p>
+
+              {/* Items grid */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '0' }}>
+                {cat.items.map((item, ii) => (
+                  <div
+                    key={ii}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'baseline',
+                      justifyContent: 'space-between',
+                      gap: '16px',
+                      padding: '18px 0 18px',
+                      borderBottom: '1px solid #e0dbd1',
+                    }}
+                    className={`menu-item-${ii % 2 === 0 ? 'odd' : 'even'}`}
+                  >
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <span
+                        style={{
+                          display: 'block',
+                          fontFamily: SERIF,
+                          fontSize: '0.875rem',
+                          fontWeight: 500,
+                          color: '#0f0e0d',
+                          letterSpacing: '0.04em',
+                          marginBottom: '4px',
+                        }}
+                      >
+                        {item.name}
+                      </span>
+                      <span
+                        style={{
+                          display: 'block',
+                          fontFamily: SERIF,
+                          fontSize: '11px',
+                          fontWeight: 300,
+                          color: '#8a8278',
+                          lineHeight: 1.7,
+                          letterSpacing: '0.02em',
+                        }}
+                      >
+                        {item.desc}
+                      </span>
                     </div>
-                    <span className="text-[#6b3f1e] font-bold text-sm whitespace-nowrap">{item.price}</span>
+                    <span
+                      style={{
+                        flexShrink: 0,
+                        fontFamily: DISPLAY,
+                        fontSize: '1.1rem',
+                        fontWeight: 300,
+                        color: '#b8986a',
+                        letterSpacing: '0.05em',
+                      }}
+                    >
+                      {item.price}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -89,8 +195,16 @@ export default function Menu() {
         <motion.p
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.8 }}
-          className="text-center text-[#6b3f1e]/50 text-xs mt-8"
+          transition={{ delay: 1 }}
+          style={{
+            marginTop: '48px',
+            textAlign: 'center',
+            fontFamily: SERIF,
+            fontSize: '11px',
+            fontWeight: 300,
+            color: '#c5bdb4',
+            letterSpacing: '0.12em',
+          }}
         >
           ※ 価格は税込みです。メニューは季節により変更する場合があります。
         </motion.p>
